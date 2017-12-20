@@ -12,8 +12,8 @@
  *  in out motor- 7, up down motor - 6, right drive - 5, left drive - 4, heartbeat LED - 2, 13, 12, 11, 10,
  *  0-Serial
  *  1-Serial
- *  2-Close Limit----set high by default(INPUT PULLUP)
- *  3-Open Limit -----set high by default(INPUT PULLUP)
+ *  2-In Limit----set high by default(INPUT PULLUP)
+ *  3-Out Limit -----set high by default(INPUT PULLUP)
  *  4- LeftDrive
  *  5-RightDrive
  *  6-UpDown Motor
@@ -59,12 +59,9 @@ void loop()
     }
 
     if (runRobot) {
+      //Serial.println(SwitchPressed());
       if (ControllerGetL2State())
       {
-        if (ControllerGetDebugState())
-        {
-          Serial.println(SwitchPressed());
-        }
         HeartBeatLoop();
         DriveWithStick();
         ElevatorDrive();

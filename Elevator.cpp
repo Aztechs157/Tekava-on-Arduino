@@ -15,7 +15,7 @@ Servo OpenClose;
 #define LIMITSWITCHDOWN 1
 #define LIMITSWITCHIN 2
 #define LIMITSWITCHOUT 3
-unsigned int[NUMBERLIMITSWITCHES] limitPins= {999, 999, 999, 999};
+unsigned int limitPins[NUMBERLIMITSWITCHES] = {8, 9, 2, 3};
 /*
  * HIGH: pressed
  * LOW: unpressed
@@ -24,36 +24,36 @@ void ElevatorSetup(void)
 {
   for (int i = 0; i < NUMBERLIMITSWITCHES; i++)
   {
-    pinMode(limitPins[i], INPUT_PULLUP)
+    pinMode(limitPins[i], INPUT_PULLUP);
   }
   UpDown.attach(UpDownPin);
   OpenClose.attach(OpenClosePin);
   /*pinMode(SwitchPin,INPUT_PULLUP);*/
  
 }
-bool SwitchPressed (void)
+bool SwitchPressed (int switchNum)
 {
-  int limitSwitch = digitalRead(LimitPin);
-  return limitSwitch == HIGH ? true : false;
+  int limitSwitch = digitalRead(limitPins[switchNum]);
+  return limitSwitch;// == HIGH ? true : false;
 }
 void ElevatorUp (void)
 {
-  UpDown.write(68);
+  UpDown.write(138);
 }
 
 void ElevatorDown (void)
 {
-  UpDown.write(122);
+  UpDown.write(52);
 }
 
 void ElevatorOpen (void)
 {
-  OpenClose.write(68);
+  OpenClose.write(36);
 }
 
 void ElevatorClose (void)
 {
-  OpenClose.write(122);
+  OpenClose.write(154);
 }
 
 void ElevatorStop (void)
@@ -63,13 +63,21 @@ void ElevatorStop (void)
 }
 void ElevatorDrive(void)
 {
-  if (ControllerGetL1State())
+  if (ControllerGetL1State()&&SwitchPressed(LIMITSWITCHIN))
   {
     ElevatorClose();
   }
-  else if(ControllerGetR1State())
+  else if(ControllerGetR1State()&&SwitchPressed(LIMITSWITCHOUT))
   {
     ElevatorOpen();
+  }
+  else if (ControllerGetDPadUpState()&&SwitchPressed(LIMITSWITCHUP))
+  {
+    ElevatorUp();
+  }
+  else if (ControllerGetDPadDownState()&&SwitchPressed(LIMITSWITCHDOWN))
+  {
+    ElevatorDown();
   }
   else
   {

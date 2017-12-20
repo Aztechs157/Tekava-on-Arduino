@@ -1,4 +1,4 @@
-bool SwitchPressed (void);
+bool SwitchPressed (int switchNum);
 void ElevatorSetup (void);
 void ElevatorUp (void);
 void ElevatorDown (void);

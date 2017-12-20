@@ -17,6 +17,7 @@ bool ControllerGetR2(void);
 bool ControllerGetR2Released(void);
 bool ControllerGetX(void);
 bool ControllerConnected(void);
-bool ControllerGetDebugState(void);
+bool ControllerGetDPadDownState(void);
+bool ControllerGetDPadUpState(void);
 #endif /* CONTROLLER_H */
 

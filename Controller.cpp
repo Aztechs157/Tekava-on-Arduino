@@ -65,6 +65,10 @@ bool ControllerGetR1State(void)
 {
   return(ps2x.Button(PSB_R1));
 }
+bool  ControllerGetDPadUpState(void)
+{
+  return(ps2x.Button(PSB_PAD_UP));
+}
 bool  ControllerGetL2(void)
 {
   return(ps2x.ButtonPressed(PSB_L2)); 
@@ -77,7 +81,7 @@ bool ControllerGetR2Released(void)
 {
   return(ps2x.ButtonReleased(PSB_R2));
 }
-bool ControllerGetDebugState(void)
+bool ControllerGetDPadDownState(void)
 {
     return(ps2x.Button(PSB_PAD_DOWN));
 }
